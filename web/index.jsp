@@ -5,7 +5,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<meta name="viewport" content="width-device-widht, initial-escale=1.0">
-	<title>Insert title here</title>
+	<title>Expenses</title>
 	<link rel="stylesheet" href="../CSS/bootstrap.min.css" type="text/css">
 	<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
 	<script src="../Scripts/bootstrap.min.js" type="text/javascript"></script>

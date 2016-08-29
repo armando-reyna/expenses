@@ -19,9 +19,9 @@ USE `gastos` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `tab_usuario` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `Usuario` VARCHAR(45) NULL,
-  `Nombre` VARCHAR(100) NULL,
-  `Password` VARCHAR(45) NULL,
+  `usuario` VARCHAR(45) NULL,
+  `nombre` VARCHAR(100) NULL,
+  `password` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 

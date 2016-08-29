@@ -11,11 +11,13 @@ public class BeanConexion {
 	private Statement  stmtquery;
 	private Statement  stmtupdate;
 	private ResultSet   rs;
+
+	public static String DRIVER = "com.mysql.jdbc.Driver";
 	
 	public BeanConexion(){
 	}
 	
-	public void setConnection(String driver,String url) 
+	private void setConnection(String driver,String url)
 		throws IOException,java.sql.SQLException{
 	     try{
             Class.forName(driver);
@@ -28,6 +30,11 @@ public class BeanConexion {
             throw e;
         } 
 	 }
+
+	public void openConnection(){
+		setConnection(DRIVER, "");
+
+	}
 			 
 	public void closeConnection()
 		throws java.sql.SQLException{
@@ -59,7 +66,7 @@ public class BeanConexion {
 	    return affecrows;
 	 }
 
-	public ResultSet executeQuery(String sql)
+	private ResultSet executeQuery(String sql)
 	 throws java.sql.SQLException{
         if(con==null)
         	throw new SQLException("No ha configurado correctamente la conexion Source:Bean handledb");
@@ -72,6 +79,17 @@ public class BeanConexion {
     	}
     	finally{}
     	return rs;
+	}
+
+	public Usuario login(Usuario usuario){
+
+		rs = manejador.executeQuery("SELECT * FROM tab_usuario WHERE usuario like '"+usuario.getNombre()+"'and password like'"+usuario.getPassword()+"';");
+		if(rs.next()){
+			Usuario us=new Usuario(rs.getInt("id"),rs.getString("nombre"));
+			manejador.closeConnection();
+			return us;
+		}
+		return null;
 	}
 
 	public String getUrl(){

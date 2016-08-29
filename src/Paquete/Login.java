@@ -25,7 +25,7 @@ public class Login extends HttpServlet {
         ResultSet rs=null;
         manejador=new BeanConexion();
         try {
-            manejador.setConnection("com.mysql.jdbc.Driver","jdbc:mysql://localhost/gastos");
+            manejador.setConnection(BeanConexion.DRIVER,"jdbc:mysql://localhost/gastos");
             rs = manejador.executeQuery("SELECT * FROM tab_usuario WHERE usuario like '"+usuario+"'and password like'"+pwd+"';");
             if(rs.next()){
                 Usuario us=new Usuario(rs.getInt("id"),rs.getString("nombre"),rs.getString("password"));
@@ -39,8 +39,15 @@ public class Login extends HttpServlet {
                 response.sendRedirect("index.jsp");
             }
 
+            //todo:
+            //Usuario us = login()
+            //validate
+            //sesion.setAttribute("user",us);
+            //response.sendRedirect("main.jsp");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

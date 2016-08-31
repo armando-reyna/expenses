@@ -1,0 +1,22 @@
+html{
+    margin: 0px;
+    padding: 0px;
+}
+body {
+    color: #fff;
+    text-align: center;
+    text-shadow: 2px 1px 3px rgba(0, 0, 0, .5);
+    height: 100%;
+    background: url("../font.png") no-repeat center center fixed;
+    background-size: cover;
+    background-color: #333;
+}
+.boxlogin{
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 20px;
+    margin: 50px auto;
+    width: 390px;
+}
+input{
+    margin: 20px;
+}

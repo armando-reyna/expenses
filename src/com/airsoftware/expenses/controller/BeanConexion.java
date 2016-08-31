@@ -1,4 +1,7 @@
-package Paquete;
+package com.airsoftware.expenses.controller;
+
+import com.airsoftware.expenses.model.Gasto;
+import com.airsoftware.expenses.model.Usuario;
 
 import java.io.*;
 import java.sql.*;
@@ -13,6 +16,7 @@ public class BeanConexion {
 	private ResultSet   rs;
 
 	public static String DRIVER = "com.mysql.jdbc.Driver";
+	public static String URL = "jdbc:mysql://localhost/gastos";
 	
 	public BeanConexion(){
 	}
@@ -31,12 +35,11 @@ public class BeanConexion {
         } 
 	 }
 
-	public void openConnection(){
-		setConnection(DRIVER, "");
-
+	public void openConnection() throws IOException, SQLException {
+		setConnection(DRIVER, URL);
 	}
 			 
-	public void closeConnection()
+	private void closeConnection()
 		throws java.sql.SQLException{
 			if(con!=null)
 			  con.close();
@@ -48,8 +51,7 @@ public class BeanConexion {
 			rs=null;		 
 	}
 			
-	public int executeUpdate(String sql)
-	 throws java.sql.SQLException{
+	private int executeUpdate(String sql) throws java.sql.SQLException{
 	    if(con==null)
 	    	throw new SQLException("No ha configurado correctamente la conexion Source:Bean handledb");
 	    
@@ -81,16 +83,28 @@ public class BeanConexion {
     	return rs;
 	}
 
-	public Usuario login(Usuario usuario){
-
-		rs = manejador.executeQuery("SELECT * FROM tab_usuario WHERE usuario like '"+usuario.getNombre()+"'and password like'"+usuario.getPassword()+"';");
-		if(rs.next()){
-			Usuario us=new Usuario(rs.getInt("id"),rs.getString("nombre"));
-			manejador.closeConnection();
-			return us;
-		}
-		return null;
+	public ResultSet login(Usuario usuario) throws SQLException {
+        System.out.println(usuario.getUsuario());
+		return executeQuery("SELECT * FROM tab_usuario WHERE usuario like '"+usuario.getUsuario()+"'and password like'"+usuario.getPassword()+"';");
 	}
+
+	public ResultSet tabla(Usuario user) throws SQLException {
+
+	    rs = executeQuery("SELECT g.id, g.nombre, t.nombre as tipo_gasto, g.monto FROM tab_gasto g, cat_tipo_gasto t where g.id_tipo_gasto=t.id and  id_usuario="+user.getId()+";");
+		return rs;
+	}
+
+	public int delete (int id) throws SQLException {
+        return executeUpdate("Delete from tab_gasto where id ="+id+";");
+    }
+
+    public int add(Gasto gasto) throws SQLException {
+        return executeUpdate("insert into tab_gasto(id_usuario,id_tipo_gasto,nombre,monto) values('"+gasto.getIdUsuario()+"','"+gasto.getIdTipoGasto()+"','"+gasto.getNombre()+"', '"+gasto.getMonto()+"'); ");
+    }
+
+    public ResultSet tipoGasto() throws SQLException {
+        return executeQuery("SELECT * FROM cat_tipo_gasto;");
+    }
 
 	public String getUrl(){
 		return url;

@@ -2,23 +2,23 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
 
     <servlet>
-        <servlet-name>Login</servlet-name>
-        <servlet-class>Paquete.Login</servlet-class>
+        <servlet-name>LoginControler</servlet-name>
+        <servlet-class>com.airsoftware.expenses.controller.LoginControler</servlet-class>
     </servlet>
 
     <servlet>
-        <servlet-name>ControsVistas</servlet-name>
-        <servlet-class>Paquete.ControsVistas</servlet-class>
+        <servlet-name>ControlVistas</servlet-name>
+        <servlet-class>com.airsoftware.expenses.controller.ControlVistas</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>Login</servlet-name>
-        <url-pattern>/Login</url-pattern>
+        <servlet-name>LoginControler</servlet-name>
+        <url-pattern>/LoginControler</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>ControsVistas</servlet-name>
-        <url-pattern>/ControsVistas</url-pattern>
+        <servlet-name>ControlVistas</servlet-name>
+        <url-pattern>/ControlVistas</url-pattern>
     </servlet-mapping>
 
 </web-app>

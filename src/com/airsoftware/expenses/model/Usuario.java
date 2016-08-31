@@ -1,18 +1,16 @@
-package Paquete;
+package com.airsoftware.expenses.model;
 
 public class Usuario {
 	private int id;
 	private String nombre;
 	private String password;
+	private String usuario;
 	
-	public Usuario(){
-	}
-	
-	public Usuario(int id, String nombre){
-		this.id=id;
-		this.nombre=nombre;
-	}
-	
+	public Usuario(){}
+	public Usuario(String usuario, String password){this.usuario = usuario; this.password = password; }
+	public Usuario(int id, String nombre, String usuario){this.id = id; this.nombre = nombre; this.usuario = usuario;}
+	public String getUsuario() {return usuario;	}
+	public void setUsuario(String usuario) {this.usuario = usuario;	}
 	public int getId() {
 		return id;
 	}

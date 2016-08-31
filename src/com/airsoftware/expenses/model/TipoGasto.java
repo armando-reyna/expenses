@@ -1,4 +1,4 @@
-package Paquete;
+package com.airsoftware.expenses.model;
 
 public class TipoGasto {
 	private int id;

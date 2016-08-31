@@ -1,4 +1,7 @@
-package Paquete;
+package com.airsoftware.expenses.controller;
+
+import com.airsoftware.expenses.controller.BeanConexion;
+import com.airsoftware.expenses.model.Usuario;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,46 +13,35 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class Login extends HttpServlet {
+public class LoginControler extends HttpServlet {
 
     private BeanConexion manejador;
-    public Login() {
-        // TODO Auto-generated constructor stub
-    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String usuario= request.getParameter("user");
         String pwd= request.getParameter("pwd");
         HttpSession sesion=request.getSession();
-        ResultSet rs=null;
         manejador=new BeanConexion();
+        Usuario user = new Usuario(usuario,pwd);
+
         try {
-            manejador.setConnection(BeanConexion.DRIVER,"jdbc:mysql://localhost/gastos");
-            rs = manejador.executeQuery("SELECT * FROM tab_usuario WHERE usuario like '"+usuario+"'and password like'"+pwd+"';");
+            manejador.openConnection();
+            ResultSet rs = manejador.login(user);
             if(rs.next()){
-                Usuario us=new Usuario(rs.getInt("id"),rs.getString("nombre"),rs.getString("password"));
+                Usuario us=new Usuario(rs.getInt("id"),rs.getString("nombre"),rs.getString("usuario"));
+                System.out.println(us.getNombre());
                 sesion.setAttribute("user",us);
-                sesion.setAttribute("nombre", us.getNombre());
-                manejador.closeConnection();
                 response.sendRedirect("main.jsp");
             }
             else{
-                manejador.closeConnection();
                 response.sendRedirect("index.jsp");
             }
 
-            //todo:
-            //Usuario us = login()
-            //validate
-            //sesion.setAttribute("user",us);
-            //response.sendRedirect("main.jsp");
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (Exception e) {
             e.printStackTrace();
         }
+
 
     }
 

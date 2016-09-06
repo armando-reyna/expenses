@@ -2,7 +2,7 @@ package com.airsoftware.expenses.model;
 
 public class Gasto {
 	private int id;
-	private int idTipoGasto;
+	private TipoGasto tipoGasto;
 	private int idUsuario;
 	private String nombre;
 	private double monto;
@@ -10,7 +10,6 @@ public class Gasto {
 	public Gasto(){
 		this.id=0;
 		this.idUsuario=0;
-		this.idTipoGasto=0;
 		this.nombre=null;
 		this.monto=0;
 	}
@@ -21,12 +20,9 @@ public class Gasto {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getIdTipoGasto() {
-		return idTipoGasto;
-	}
-	public void setIdTipoGasto(int idTipoGasto) {
-		this.idTipoGasto = idTipoGasto;
-	}
+	public TipoGasto getTipoGasto() {return tipoGasto;}
+	public void setTipoGasto(String nombreTipoGasto) {tipoGasto = new TipoGasto(nombreTipoGasto);}
+	public void setTipoGasto(int idTipoGasto){tipoGasto = new TipoGasto(idTipoGasto);}
 	public int getIdUsuario() {
 		return idUsuario;
 	}

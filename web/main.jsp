@@ -46,18 +46,20 @@
 </header>
 
 <div id="registrar" class="container" style="display:none;">
-	<form>
+	<form id="form">
 		<br>Nombre: <input class="form-control input-sm input" type="text" id="name"/>
 		<br>Monto: <input class="form-control input-sm input" type="text" id="monto"/>
 		<br>Tipo: <select class="form-control input-sm	" id="type">
-		<%@ page import="java.sql.*" %>
+		<%@ page import="java.util.ArrayList" %>
+		<%@ page import="com.airsoftware.expenses.model.TipoGasto" %>
 		<jsp:useBean id="manejador" scope="session" class="com.airsoftware.expenses.controller.BeanConexion"></jsp:useBean>
 		<%
-			ResultSet rs=null;
+			int i = 0;
 			manejador.openConnection();
-			rs=manejador.tipoGasto();
-			while(rs.next()){
-				out.println("<option value="+rs.getInt("id")+">"+rs.getString("nombre")+"</option>");
+			ArrayList<TipoGasto> rs = manejador.tipoGasto();
+			while(i<rs.size()){
+				out.println("<option value="+rs.get(i).getId()+">"+rs.get(i).getNombre()+"</option>");
+				i++;
 			}
 		%>
 	</select>
@@ -69,9 +71,9 @@
 
 </div>
 
-<script src="../Scripts/jquery-3.1.0.min.js"></script>
-<script src="../Scripts/bootstrap.min.js"></script>
-<script src="../Scripts/bootbox.min.js"></script>
+<script src="../scripts/jquery-3.1.0.min.js"></script>
+<script src="../scripts/bootstrap.min.js"></script>
+<script src="../scripts/bootbox.min.js"></script>
 
 <script type="text/javascript">
 
@@ -117,6 +119,7 @@
 				$.post('ControlVistas',{method : "add", name : name, monto : monto, type : type }, function(results){
 					if(results != null && results != ""){
 						alert("Gasto Registrado con exito") ;
+						$("#form")[0].reset();
 						$('#registrar').css("display", "none");
 						$('#factura').css("display", "block");
 						desplegarTabla();

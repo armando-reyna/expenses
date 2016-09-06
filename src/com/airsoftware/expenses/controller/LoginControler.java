@@ -27,10 +27,8 @@ public class LoginControler extends HttpServlet {
 
         try {
             manejador.openConnection();
-            ResultSet rs = manejador.login(user);
-            if(rs.next()){
-                Usuario us=new Usuario(rs.getInt("id"),rs.getString("nombre"),rs.getString("usuario"));
-                System.out.println(us.getNombre());
+            Usuario us = manejador.login(user);
+            if(us != null){
                 sesion.setAttribute("user",us);
                 response.sendRedirect("main.jsp");
             }

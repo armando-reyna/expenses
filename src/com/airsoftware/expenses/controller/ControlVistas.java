@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -35,11 +36,25 @@ public class ControlVistas extends HttpServlet {
 
         if(method.equals("show")){
             try {
-                ResultSet rs = manejador.tabla(user);
+                ArrayList<Gasto> rs = manejador.tabla(user);
+                int tam = rs.size();
+                int i=0;
                 out.println("<script src=\"../scripts/jquery-3.1.0.min.js\"></script>");
                 out.println("<script src=\"../scripts/bootbox.min.js\"></script>");
                 out.println("<script src=\"../scripts/bootstrap.min.js\"></script>");
                 out.println("<script type=\"text/javascript\">");
+
+                out.println("var desplegarTabla =  function(){  " +
+                        "   $.post('ControlVistas',{method : \"show\"}, function(results){  " +
+                        "    if(results != null && results != \"\"){  " +
+                        "     $('#factura').html(results);  " +
+                        "    }else{  " +
+                        "     $('#factura').css(\"display\",\"none\");  " +
+                        "     $('#factura').html(\"\");  " +
+                        "     alert(\"Some exception occurred! Please try again.\");  " +
+                        "    }  " +
+                        "   });  " +
+                        "  };");
 
                 out.println("$(\".delete\").click(function(){  " +
                         "   var id = $(this).attr(\"gastoId\");  " +
@@ -48,7 +63,7 @@ public class ControlVistas extends HttpServlet {
                         "     $.post('ControlVistas', {method: \"delete\", idGasto: id}, function (results) {  " +
                         "      if (results != null && results != \"\") {  " +
                         "       Example.show(\"Gasto Eliminado\");  " +
-                        "       $('#factura').html(results);  " +
+                        "       $('#factura').html(desplegarTabla); " +
                         "      }  " +
                         "      else {  " +
                         "       $('#factura').html(\"\");  " +
@@ -64,9 +79,15 @@ public class ControlVistas extends HttpServlet {
                 out.println("<tr>");
                 out.println("<th>Nombre</th> <th>Tipo</th> <th>Monto</th> <th> </th>");
                 out.println("</tr>");
-                while(rs.next()){
-                    System.out.println(rs.getString("nombre"));
-                    out.println("<tr> <td>"+rs.getString("nombre")+"</td> <td>"+rs.getString("tipo_gasto")+"</td> <td>"+rs.getDouble("monto")+"</td> <td> <button class='delete btn btn-danger' gastoId='"+rs.getInt("id")+"' >Eliminar</button> </td> </tr>");
+
+                while(i<tam){
+                    out.println("<tr>" +
+                            " <td>"+rs.get(i).getNombre()+"</td>" +
+                            " <td>"+rs.get(i).getTipoGasto().getNombre()+"</td> " +
+                            "<td>"+rs.get(i).getMonto()+"</td>" +
+                            " <td> <button class='delete btn btn-danger' gastoId='"+rs.get(i).getId()+"' >Eliminar</button> </td>" +
+                            " </tr>");
+                    i++;
                 }
                 out.println(" </table>");
             } catch (SQLException e) {
@@ -92,7 +113,7 @@ public class ControlVistas extends HttpServlet {
             Gasto gasto = new Gasto();
 
             gasto.setIdUsuario(user.getId());
-            gasto.setIdTipoGasto(Integer.parseInt(request.getParameter("type")));
+            gasto.setTipoGasto(Integer.parseInt(request.getParameter("type")));
             gasto.setNombre(request.getParameter("name"));
             gasto.setMonto(Double.parseDouble(request.getParameter("monto")));
 

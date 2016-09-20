@@ -8,7 +8,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -43,7 +46,7 @@ public class ControlVistas extends HttpServlet {
                 out.println("<script src=\"../scripts/bootbox.min.js\"></script>");
                 out.println("<script src=\"../scripts/bootstrap.min.js\"></script>");
                 out.println("<script type=\"text/javascript\">");
-
+                out.println("$(document).ready(function() {");
                 out.println("var desplegarTabla =  function(){  " +
                         "   $.post('ControlVistas',{method : \"show\"}, function(results){  " +
                         "    if(results != null && results != \"\"){  " +
@@ -63,7 +66,8 @@ public class ControlVistas extends HttpServlet {
                         "     $.post('ControlVistas', {method: \"delete\", idGasto: id}, function (results) {  " +
                         "      if (results != null && results != \"\") {  " +
                         "       Example.show(\"Gasto Eliminado\");  " +
-                        "       $('#factura').html(desplegarTabla); " +
+                        "     $('#factura').css(\"display\",\"none\");  " +
+                        "       $('#factura').html(desplegarTabla()); " +
                         "      }  " +
                         "      else {  " +
                         "       $('#factura').html(\"\");  " +
@@ -74,24 +78,29 @@ public class ControlVistas extends HttpServlet {
                         "     Example.show(\"Peticion fallida\");  " +
                         "   });  " +
                         "  });");
+                out.println("});");
                 out.println("</script>");
+
                 out.println("<table class='table table-hover'>");
                 out.println("<tr>");
-                out.println("<th>Nombre</th> <th>Tipo</th> <th>Monto</th> <th> </th>");
+                out.println("<th>Nombre</th> <th>Tipo</th> <th>Fecha</th> <th>Monto</th> <th> </th>");
                 out.println("</tr>");
 
                 while(i<tam){
                     out.println("<tr>" +
-                            " <td>"+rs.get(i).getNombre()+"</td>" +
+                            " <td>"+rs.get(i).getNombre()+ "</td>" +
                             " <td>"+rs.get(i).getTipoGasto().getNombre()+"</td> " +
-                            "<td>"+rs.get(i).getMonto()+"</td>" +
-                            " <td> <button class='delete btn btn-danger' gastoId='"+rs.get(i).getId()+"' >Eliminar</button> </td>" +
+                            " <td>" +rs.get(i).getFecha()+ "</td>" +
+                            " <td>"+rs.get(i).getMonto()+ "</td>" +
+                            " <td> <button class='delete btn btn-danger' gastoId='"+rs.get(i).getId()+"'>Eliminar</button> </td>" +
                             " </tr>");
                     i++;
                 }
                 out.println(" </table>");
             } catch (SQLException e) {
                 // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (ParseException e) {
                 e.printStackTrace();
             }
 
@@ -111,17 +120,30 @@ public class ControlVistas extends HttpServlet {
         }
         if(method.equals("add")){
             Gasto gasto = new Gasto();
+            String fecha = request.getParameter("date");
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            Date fechaDate = null;
+            try {
+                fechaDate = formato.parse(fecha);
+            }
+            catch (ParseException ex)
+            {
+                System.out.println(ex);
+            }
+            System.out.println(fecha);
+            System.out.println("Fecha objeto: "+fechaDate);
 
             gasto.setIdUsuario(user.getId());
             gasto.setTipoGasto(Integer.parseInt(request.getParameter("type")));
             gasto.setNombre(request.getParameter("name"));
+            gasto.setFecha(fechaDate);
             gasto.setMonto(Double.parseDouble(request.getParameter("monto")));
 
             int op=0;
             try {
                 op = manejador.add(gasto);
             } catch (SQLException e) {
-                // TODO Auto-generated catch block
+                // TODO Auto-generated cat ch block
                 e.printStackTrace();
             }
             if(op!=0){

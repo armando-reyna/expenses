@@ -44,6 +44,7 @@ CREATE TABLE IF NOT EXISTS `tab_gasto` (
   `id_usuario` INT NOT NULL,
   `id_tipo_gasto` INT NOT NULL,
   `nombre` VARCHAR(100) NULL,
+  `fecha` DATE NULL,
   `monto` DOUBLE NULL,
   PRIMARY KEY (`id`, `id_usuario`, `id_tipo_gasto`),
   INDEX `fk_tab_gasto_tab_usuario_idx` (`id_usuario` ASC),

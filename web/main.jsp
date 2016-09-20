@@ -62,8 +62,12 @@
 				i++;
 			}
 		%>
-	</select>
-		<br><input id="submit" value="Guardar" class="btn btn-success" type="submit">
+		</select>
+		<br>Fecha:
+            <input type='date' class="form-control" id="date"/>
+
+
+		<br><input id="submit" value="Guardar" class="btn btn-success" type="submit"/>
 	</form>
 </div>
 
@@ -92,7 +96,9 @@
 					alert("Some exception occurred! Please try again.");
 				}
 			});
-		};
+		}
+
+
 
 		$('#fac').click(function () {
 			$('#registrar').css("display", "none");
@@ -115,8 +121,9 @@
 			var name = $('#name').val();
 			var monto = $('#monto').val();
 			var type = $('#type').val();
-			if(name != null && monto != null && type != null)
-				$.post('ControlVistas',{method : "add", name : name, monto : monto, type : type }, function(results){
+			var date = $('#date').val();
+			if(name != null && monto != null && type != null )
+				$.post('ControlVistas',{method : "add", name : name, monto : monto, type : type, date : date }, function(results){
 					if(results != null && results != ""){
 						alert("Gasto Registrado con exito") ;
 						$("#form")[0].reset();
@@ -133,27 +140,27 @@
 				alert("Ningun campo debe estar vacio. ");
 		});
 
-	});
 
-	$(".delete").click(function(){
-		var id = $(this).attr("gastoId");
-		bootbox.confirm("¿Esta seguro?", function () {
-			if (event) {
-				$.post('ControlVistas', {method: "delete", idGasto: id}, function (results) {
-					if (results != null && results != "") {
-						Example.show("Gasto Eliminado");
-						$('#factura').html(results);
-					}
-					else {
-						$('#factura').html("");
-						Example.show("Error en la operación");
-					}
-				});
-			} else
-				Example.show("Peticion fallida");
-		});
+		/*
+		$(".delete").click(function(){
+			var id = $(this).attr("gastoId");
+			bootbox.confirm("¿Esta seguro?", function () {
+				if (event) {
+					$.post('ControlVistas', {method: "delete", idGasto: id}, function (results) {
+						if (results != null && results != "") {
+							Example.show("Gasto Eliminado");
+							$('#factura').html(results);
+						}
+						else {
+							$('#factura').html("");
+							Example.show("Error en la operación");
+						}
+					});
+				} else
+					Example.show("Peticion fallida");
+			});
+		});*/
 	});
-
 
 	function hacerRegistro() {
 		document.getElementById('factura').style.display = 'none';

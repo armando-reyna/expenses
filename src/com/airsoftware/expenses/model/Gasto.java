@@ -1,17 +1,21 @@
 package com.airsoftware.expenses.model;
 
+import java.util.Date;
+
 public class Gasto {
 	private int id;
 	private TipoGasto tipoGasto;
 	private int idUsuario;
 	private String nombre;
 	private double monto;
+    private Date fecha;
 	
 	public Gasto(){
 		this.id=0;
 		this.idUsuario=0;
 		this.nombre=null;
 		this.monto=0;
+        this.fecha=null;
 	}
 	
 	public int getId() {
@@ -41,5 +45,7 @@ public class Gasto {
 	public void setMonto(double monto) {
 		this.monto = monto;
 	}
+    public Date getFecha() {return fecha; }
+    public void setFecha(Date fecha) {this.fecha = fecha; }
 
 }

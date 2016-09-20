@@ -6,7 +6,9 @@ import com.airsoftware.expenses.model.Usuario;
 
 import java.io.*;
 import java.sql.*;
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class BeanConexion {
 
@@ -94,16 +96,17 @@ public class BeanConexion {
             return null;
 	}
 
-	public ArrayList<Gasto> tabla(Usuario user) throws SQLException {
+	public ArrayList<Gasto> tabla(Usuario user) throws SQLException, ParseException {
 
-	    rs = executeQuery("SELECT g.id, g.nombre, t.nombre as tipo_gasto, g.monto FROM tab_gasto g, cat_tipo_gasto t where g.id_tipo_gasto=t.id and  id_usuario="+user.getId()+";");
-
+	    rs = executeQuery("SELECT g.id, g.nombre, t.nombre as tipo_gasto, g.fecha , g.monto FROM tab_gasto g, cat_tipo_gasto t where g.id_tipo_gasto=t.id and  id_usuario="+user.getId()+";");
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy/MM/dd");
         ArrayList<Gasto> aux = new ArrayList();
         while(rs.next()){
             Gasto g = new Gasto();
             g.setId(rs.getInt("id"));
             g.setNombre(rs.getString("nombre"));
             g.setTipoGasto(rs.getString("tipo_gasto"));
+            g.setFecha(rs.getDate("fecha"));
             g.setMonto(rs.getDouble("monto"));
             aux.add(g);
         }
@@ -115,7 +118,10 @@ public class BeanConexion {
     }
 
     public int add(Gasto gasto) throws SQLException {
-        return executeUpdate("insert into tab_gasto(id_usuario,id_tipo_gasto,nombre,monto) values('"+gasto.getIdUsuario()+"','"+gasto.getTipoGasto().getId()+"','"+gasto.getNombre()+"', '"+gasto.getMonto()+"'); ");
+        SimpleDateFormat formato = new SimpleDateFormat("yy-MM-dd");
+		System.out.println(formato.format(gasto.getFecha()));
+		//(id_usuario,id_tipo_gasto,nombre,fecha,monto)
+		return executeUpdate("insert into tab_gasto values(null,"+gasto.getIdUsuario()+","+gasto.getTipoGasto().getId()+",'"+gasto.getNombre()+"','"+formato.format(gasto.getFecha())+"', "+gasto.getMonto()+"); ");
     }
 
     public ArrayList<TipoGasto> tipoGasto() throws SQLException {

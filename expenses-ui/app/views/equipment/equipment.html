@@ -1,0 +1,91 @@
+<div class="wrapper wrapper-content">
+  <div class="row">
+    <div class="col-lg-12 animated fadeInRight">
+
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5><i ng-class="vm.stateData.iClass"></i> {{ vm.stateData.pageTitle }}</h5>
+          <div ibox-tools></div>
+        </div>
+
+        <div class="btn-bar">
+          <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="Actualizar Usuarios"
+                  ng-click="vm.refresh()">
+            <i class="fa fa-refresh"></i> Actualizar Lista
+          </button>
+          <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="Seleccionar todos"
+                  ng-click="vm.selectAll()">
+            <i class="fa fa-check"></i>
+            <span ng-hide="vm.allselected">Seleccionar todos</span>
+            <span ng-show="vm.allselected">Deseleccionar todos</span>
+          </button>
+          <button ng-if="main.token.role.id == CONSTANTS.ROLES.ADMIN" class="btn btn-white btn-sm" data-toggle="tooltip"
+                  data-placement="top" title="Agregar Usuario" ng-click="vm.openEquipmentModal(false)">
+            <i class="fa fa-plus"></i>
+          </button>
+          <button ng-if="main.token.role.id == CONSTANTS.ROLES.ADMIN" class="btn btn-white btn-sm" data-toggle="tooltip"
+                  data-placement="top" title="Modificar" ng-disabled="!vm.updateEnabled" ng-click="vm.openEquipmentModal(true)">
+            <i class="fa fa-pencil"></i>
+          </button>
+          <button ng-if="main.token.role.id == CONSTANTS.ROLES.ADMIN" class="btn btn-white btn-sm" data-toggle="tooltip"
+                  data-placement="top" title="Activar" ng-disabled="!vm.activateEnabled" ng-click="vm.activateEquipments()">
+            <i class="fa fa-check"></i>
+          </button>
+          <button ng-if="main.token.role.id == CONSTANTS.ROLES.ADMIN" class="btn btn-white btn-sm" data-toggle="tooltip"
+                  data-placement="top" title="Desactivar" ng-disabled="!vm.deactivateEnabled" ng-click="vm.deactivateEquipments()">
+            <i class="fa fa-times"></i>
+          </button>
+          <label class="margin-left-md">
+            <input type="checkbox" ng-model="vm.inactiveEquipments" ng-click="vm.refresh()"> &nbsp;{{ vm.stateData.pageTitle }} Inactivos
+          </label>
+        </div>
+
+        <div class="ibox-content">
+
+          <table datatable="ng" dt-options="dtOptions"
+                 class="table table-striped table-bordered table-hover dataTables-example">
+            <thead>
+            <tr>
+              <th>&nbsp;</th>
+              <th ng-show="vm.inactiveEquipments">Estado</th>
+              <th>Nombre</th>
+              <th>Marca</th>
+              <th>Modelo</th>
+              <th>Cantidad</th>
+              <th>Disponibles</th>
+              <th>Imágen</th>
+              <th>Galería</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="equipment in vm.equipmentList">
+              <td class="text-center">
+                <input type="checkbox" ng-model="equipment.selected" ng-click="vm.enableBts()">
+              </td>
+              <td ng-show="vm.inactiveEquipments">
+                <label class="label label-primary" ng-show="equipment.active">Activo</label>
+                <label class="label label-danger" ng-hide="equipment.active">Inactivo</label>
+                <label class="label label-danger" ng-hide="equipment.active">Inactivo</label>
+              </td>
+              <td>{{equipment.name}}</td>
+              <td>{{equipment.brand}}</td>
+              <td>{{equipment.model}}</td>
+              <td>{{equipment.stock}}</td>
+              <td>{{equipment.available}}</td>
+              <td>
+                <img ng-if="equipment.equipmentFiles[0]" ng-src="{{CONSTANTS.API_URI + 'files/equipment/' + equipment.equipmentFiles[0].name}}" style="max-height: 30px">
+              </td>
+              <td class="text-center">
+                <i class="fa fa-picture-o icon-sm" aria-hidden="true" ng-click="vm.cloud(equipment)"></i>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

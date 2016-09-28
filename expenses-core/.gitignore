@@ -1,0 +1,9 @@
+target
+src/main/webapp/fonts
+src/main/webapp/img
+src/main/webapp/resources
+src/main/webapp/scripts
+src/main/webapp/styles
+src/main/webapp/views
+src/main/webapp/index.html
+src/main/webapp/index.jsp

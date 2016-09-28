@@ -1,0 +1,105 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+    <h2>Tienda</h2>
+    <ol class="breadcrumb">
+      <li class="active">
+        <strong>Mi Pedido</strong>
+      </li>
+    </ol>
+  </div>
+  <div class="col-lg-2">
+
+  </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+
+
+
+  <div class="row">
+    <div class="col-md-9">
+
+      <div class="ibox">
+        <div class="ibox-title">
+          <span class="pull-right">(<strong>{{vm.cart.length}}</strong>) productos</span>
+          <h5>Productos en su pedido</h5>
+        </div>
+
+        <div class="ibox-content" ng-repeat="product in vm.cart">
+          <div class="table-responsive">
+            <table class="table shoping-cart-table">
+              <tbody>
+              <tr>
+                <td width="90">
+                  <div class="cart-product-imitation">
+                    <img ng-if="product.productFiles[0]"
+                         ng-src="{{CONSTANTS.API_URI + 'storage/product-view?' + product.productFiles[0].fileURL}}">
+                  </div>
+                </td>
+                <td class="desc">
+                  <h3>
+                    <a href="#" class="text-navy">
+                      {{product.name}}
+                    </a>
+                  </h3>
+                  <p class="small">
+                    {{product.description}}
+                  </p>
+                  <div class="m-t-sm">
+                    <a ng-click="vm.remove(product)" class="text-muted"><i class="fa fa-trash"></i> Eliminar</a>
+                  </div>
+                </td>
+
+                <td>
+                  {{product.price | currency}}
+                </td>
+                <td width="65">
+                  <input type="text" class="form-control" ng-model="product.items" onlydigits>
+                </td>
+                <td>
+                  <h4>
+                    {{product.total | currency}}
+                  </h4>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="ibox-content">
+          <button class="btn btn-primary pull-right" ng-if="vm.cart.length>0"><i class="fa fa fa-shopping-cart"></i> Finalizar Compra</button>
+          <a ui-sref="index.store-product" class="btn btn-white"><i class="fa fa-arrow-left"></i> Continuar Comprando</a>
+        </div>
+
+      </div>
+
+    </div>
+    <div class="col-md-3">
+
+      <div class="ibox">
+        <div class="ibox-title">
+          <h5>Cart Summary</h5>
+        </div>
+        <div class="ibox-content">
+          <span>
+              Total
+          </span>
+          <h2 class="font-bold">
+            {{vm.total | currency}}
+          </h2>
+          <hr/>
+          <div class="m-t-sm" ng-if="vm.cart.length>0">
+            <div class="btn-group">
+              <a ng-click="vm.performBuy()" class="btn btn-primary btn-sm"><i class="fa fa-shopping-cart"></i> Finalizar Compra</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+</div>

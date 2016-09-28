@@ -1,0 +1,131 @@
+[
+  {
+    "name": "Inicio",
+    "ngClass": "",
+    "href": "index.html",
+    "iClass": "fa fa-home",
+    "uiSrefSctive": "active",
+    "faArrow": ""
+  },
+  {
+    "name": "Agenda",
+    "ngClass": "",
+    "uiSref": "index.main",
+    "iClass": "fa fa-calendar",
+    "faArrow": "fa arrow",
+    "hasSubitems": true,
+    "subitems": [
+      {
+        "nameChild": "Calendario",
+        "ngClass": "",
+        "uiSref": "index.appointment",
+        "actions": "Parameter"
+      }
+    ]
+  },
+  {
+    "name": "Banner",
+    "ngClass": "",
+    "uiSref": "index.banner",
+    "iClass": "fa fa-bullhorn",
+    "uiSrefSctive": "active",
+    "faArrow": ""
+  },
+  {
+    "name": "Usuarios",
+    "ngClass": "",
+    "uiSref": "index.user",
+    "iClass": "fa fa-users",
+    "uiSrefSctive": "active",
+    "faArrow": ""
+  },
+  {
+    "name": "Clientes",
+    "ngClass": "",
+    "uiSref": "index.client",
+    "iClass": "fa fa-suitcase",
+    "uiSrefSctive": "active",
+    "faArrow": ""
+  },
+  {
+    "name": "Empleados",
+    "ngClass": "",
+    "uiSref": "index.employee",
+    "iClass": "fa fa-fire",
+    "uiSrefSctive": "active",
+    "faArrow": ""
+  },
+  {
+    "name": "Proveedores",
+    "ngClass": "",
+    "uiSref": "index.supplier",
+    "iClass": "fa fa-truck",
+    "uiSrefSctive": "active",
+    "faArrow": ""
+  },
+  {
+    "name": "Equipos",
+    "ngClass": "",
+    "uiSref": "index.equipment",
+    "iClass": "fa fa-desktop",
+    "uiSrefSctive": "active",
+    "faArrow": ""
+  },
+  {
+    "name": "Cubículos",
+    "ngClass": "",
+    "uiSref": "index.cubicle",
+    "iClass": "fa fa-map-marker",
+    "uiSrefSctive": "active",
+    "faArrow": ""
+  },
+  {
+    "name": "Categorías",
+    "ngClass": "",
+    "uiSref": "index.category",
+    "iClass": "fa fa-tags",
+    "hasSubitems": false
+  },
+  {
+    "name": "Productos",
+    "ngClass": "",
+    "uiSref": "index.product",
+    "iClass": "fa fa-shopping-cart",
+    "hasSubitems": false
+  },
+  {
+    "name": "Servicios",
+    "ngClass": "",
+    "uiSref": "index.service",
+    "iClass": "fa fa-list",
+    "hasSubitems": false
+  },
+  {
+    "name": "Tienda",
+    "ngClass": "",
+    "uiSref": "index.store",
+    "iClass": "fa fa-shopping-cart",
+    "faArrow": "fa arrow",
+    "hasSubitems": true,
+    "subitems": [
+      {
+        "nameChild": "Productos",
+        "ngClass": "",
+        "uiSref": "index.store-product",
+        "actions": "Parameter"
+      },
+      {
+        "nameChild": "Servicios",
+        "ngClass": "",
+        "uiSref": "index.store-service",
+        "actions": "Parameter"
+      },
+      {
+        "nameChild": "Mi Pedido",
+        "ngClass": "",
+        "uiSref": "index.cart",
+        "actions": "Parameter"
+      }
+    ]
+  }
+]

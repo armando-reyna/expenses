@@ -1,0 +1,277 @@
+<!DOCTYPE HTML>
+<!--
+	Arcana by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html ng-app="expenses">
+<head>
+  <title>expenses</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  <!--[if lte IE 8]>
+  <script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" href="assets/css/main.css"/>
+  <link rel="stylesheet" href="assets/css/bootstrap.css"/>
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="assets/css/ie8.css"/><![endif]-->
+  <!--[if lte IE 9]>
+  <link rel="stylesheet" href="assets/css/ie9.css"/><![endif]-->
+
+</head>
+<body ng-controller="MainCtrl as main">
+<div id="page-wrapper">
+
+  <!-- Header -->
+  <div id="header">
+
+    <!-- Logo -->
+    <h1>
+      <a href="index.html" id="logo">
+        <img src="img/header.png">
+      </a>
+    </h1>
+
+    <!-- Nav -->
+    <nav id="nav">
+      <ul>
+        <li class="current"><a href="index.html">Inicio</a></li>
+        <li><a href="#mission">Mision y Visión</a></li>
+        <li><a href="#us">Nosotros</a></li>
+        <li><a href="#products">Productos y Servicios</a></li>
+        <li><a href="#footer">Contacto</a></li>
+        <li><a href="index.app.html#/index/main">Acceso Miembros</a></li>
+      </ul>
+    </nav>
+
+  </div>
+
+  <!-- Banner -->
+  <section id="banner" ng-show="main.images">
+    <uib-carousel active="1">
+      <uib-slide ng-repeat="slide in main.images track by slide.id" index="slide.id">
+        <img ng-src="{{slide.url}}" style="margin:auto;">
+        <div class="carousel-caption"></div>
+      </uib-slide>
+    </uib-carousel>
+  </section>
+
+  <!-- Highlights -->
+  <section id="mission" class="wrapper style1">
+    <div class="container">
+
+      <header class="major">
+        <h2>Misión</h2>
+        <i class="fa fa-shield icon-primary"></i>
+        <p>
+          Brindar a nuestros pacientes, con calidad humana y seguridad, servicios especializados en dermatología
+          clínica, quirúrgica y cosmetología
+        </p>
+      </header>
+
+      <header class="major">
+        <h2>Visión</h2>
+        <i class="fa fa-globe icon-primary"></i>
+        <p>
+          expenses, como líder en servicios de especialidad de excelencia y con proyección a nivel internacional, busca
+          formar integralmente talento humano de alto nivel científico, generador de conocimiento, para contribuir a
+          la promoción, prevención y recuperación de la salud cutánea, en procura de mejorar la calidad de vida del
+          ser humano.
+        </p>
+      </header>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta" class="wrapper style3">
+    <div class="container">
+      <header class="major">
+        <h2>Política de Calidad</h2>
+        <i class="fa fa-fire icon-primary-white"></i>
+        <br/>
+        <p>
+          Mantener un alto índice de satisfacción del usuario en la prestación de servicios de salud con un enfoque
+          orientado a la promoción de la salud, prevención, diagnóstico y recuperación de la enfermedad cutánea,
+          fundamentado en la idoneidad del talento humano y la celeridad del servicio a través de una gestión
+          efectiva, el análisispermanente de los diferentes resultados, y el mejoramiento continuo, en pro de afianzar
+          nuestro compromiso con la calidad de vida y con la ciencia.
+        </p>
+      </header>
+    </div>
+  </section>
+
+  <!-- Gigantic Heading -->
+  <section id="us" class="wrapper style2">
+    <div class="container">
+      <header class="major">
+        <h2>Nosotros</h2>
+        <i class="fa fa-users icon-primary"></i>
+      </header>
+      <p>
+        NOSOTROS somos una Familia en la que se Aprende a Compartir y Convivir, en donde somos capaces de dar y recibir
+        comprensión, afecto, conocimiento, a través de las satisfacciones de nuestros clientes.
+      </p>
+      <p>
+        Así mismo, reconocemos las capacidades personales, pero más allá del YO está elTÚ, donde  también reconocemos
+        las capacidades del Otro, en donde entendemosque somos seres capaces con necesidades de cambio y que podemos
+        encontrar anuestro alrededor las personas con las que se requiere interactuar, compartir, retroalimentarse y
+        complementarse. Comprendemos que a través del reconocimientode nuestras propias capacidades y las del otro se
+        abren espacios para consolidar laautoestima, la confianza, la credibilidad, la confrontación y el respeto.
+      </p>
+      <p>
+        Partimos de la Voluntad y vocación en lo que se hace, a esa entrega y pasión que,desde la convicción interior,
+        nos impulsa en las tareas que nos proponemos. A partirde este criterio y de comportamientos y de actitudes
+        coherentes, podemos generarlabores placenteras y satisfactorias para cada uno de nuestros pacientes.
+      </p>
+      <p>
+        Somos Coherentes entre el pensar, el decir y el hacer. Para encontrarla se requiere de la participación de cada
+        uno empleados, en un proceso que reflejetransparencia, autonomía, comprensión e integridad en la ejecución de
+        las accionesque se han propuesto.
+      </p>
+    </div>
+  </section>
+
+  <!-- Posts -->
+  <section id="products" class="wrapper style1">
+    <div class="container">
+      <header class="major">
+        <h2 class="products-title">Productos y Servicios</h2>
+      </header>
+      <div class="row">
+        <section class="6u 12u(narrower)">
+          <div class="box post" ng-repeat="product in main.productList">
+            <a href="#" class="image left"><img ng-if="product.productFiles[0]"
+                                                ng-src="{{CONSTANTS.API_URI + 'storage/product-view?' + product.productFiles[0].fileURL}}"/></a>
+            <div class="inner">
+              <h3>{{product.name}}</h3>
+              <p>{{product.description}}</p>
+              <p><b>{{product.price | currency}}</b></p>
+              <a ng-click="main.addToCart(product)"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Comprar</a>
+            </div>
+          </div>
+        </section>
+        <section class="6u 12u(narrower)" ng-repeat="service in main.serviceList">
+          <div class="box post">
+            <a href="#" class="image left"><img ng-if="service.productFiles[0]"
+                                                ng-src="{{CONSTANTS.API_URI + 'storage/product-view?' + service.productFiles[0].fileURL}}"/></a>
+            <div class="inner">
+              <h3>{{service.name}}</h3>
+              <p>{{service.description}}</p>
+              <p><b>{{service.price | currency}}</b></p>
+              <a ng-click="main.addToCart(service)"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Comprar</a>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div id="footer">
+    <div class="container">
+      <div class="row">
+        <section class="6u">
+          <h3>Contacto</h3>
+          <ul class="links">
+            <li><a href="#">
+              <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;
+              Ángel Urraza 303 Col. Insurgentes san Borja CP 03100 Ciudad de México
+            </a></li>
+            <li><a href="mailto:info@expenses.com.mx">
+              <i class="fa fa-envelope-o" aria-hidden="true"></i>&nbsp;&nbsp;
+              info@expenses.com.mx
+            </a></li>
+            <li><a href="#">
+              <i class="fa fa-phone" aria-hidden="true"></i>&nbsp;&nbsp;
+              5669 3117</a>
+            </li>
+            <li><a href="#">
+              <i class="fa fa-phone" aria-hidden="true"></i>&nbsp;&nbsp;
+              5536 0146</a>
+            </li>
+          </ul>
+        </section>
+        <section class="6u">
+          <h3>&nbsp;</h3>
+          <script src='https://maps.googleapis.com/maps/api/js?v=3.exp'></script>
+          <div style='overflow:hidden;height:440px;width:700px;'>
+            <div id='gmap_canvas' style='height:440px;width:700px;'></div>
+            <div>
+              <small><a href="http://www.embedgooglemaps.com">Generate your Google map here, quick and easy! Click here
+                Visit our website!</a></small>
+            </div>
+            <div>
+              <small><a href="https://top10geeks.com/top-10-best-running-shoes-men-2016/">top 10 running shoes for men
+                2016</a></small>
+            </div>
+            <style>#gmap_canvas img {
+              max-width: none !important;
+              background: none !important
+            }</style>
+          </div>
+          <script type='text/javascript'>
+            function init_map() {
+              var myOptions = {
+                zoom: 14,
+                center: new google.maps.LatLng(19.3839799, -99.17331230000002),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+              };
+              map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);
+              marker = new google.maps.Marker({
+                map: map,
+                position: new google.maps.LatLng(19.3839799, -99.17331230000002)
+              });
+              infowindow = new google.maps.InfoWindow({content: '<strong>expenses</strong><br>Ángel Urraza 303 Col. Insurgentes san Borja CP 03100<br>'});
+              google.maps.event.addListener(marker, 'click', function () {
+                infowindow.open(map, marker);
+              });
+              infowindow.open(map, marker);
+            }
+            google.maps.event.addDomListener(window, 'load', init_map);
+          </script>
+        </section>
+      </div>
+    </div>
+
+    <!-- Icons -->
+    <ul class="icons">
+      <li>
+        <a href="https://twitter.com/expensesClinica" target="_blank" class="icon fa-twitter"><span class="label">Twitter</span></a>
+      </li>
+      <li>
+        <a href="https://www.facebook.com/expensesClinica28" target="_blank" class="icon fa-facebook"><span
+          class="label">Facebook</span></a>
+      </li>
+      <li><a href="#" target="_blank" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
+      <li><a href="#" target="_blank" class="icon fa-google-plus"><span class="label">Google+</span></a></li>
+    </ul>
+
+    <!-- Copyright -->
+    <div class="copyright">
+      <ul class="menu">
+        <li>&copy; expenses 2016. All rights reserved</li>
+        <li>Design: <a href="http://airsoftware.com.mx" target="_blank">AIRsoftware</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.dropotron.min.js"></script>
+<script src="assets/js/skel.min.js"></script>
+<script src="assets/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="assets/js/ie/respond.min.js"></script>
+<![endif]-->
+<script src="assets/js/main.js"></script>
+
+<script src="scripts/vendor.min.js"></script>
+<script src="scripts/script.v1.0.min.js"></script>
+
+</body>
+</html>

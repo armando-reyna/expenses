@@ -1,0 +1,46 @@
+[
+  {
+    "name": "Inicio",
+    "ngClass": "",
+    "href": "index.html",
+    "iClass": "fa fa-home",
+    "uiSrefSctive": "active",
+    "faArrow": ""
+  },
+  {
+    "name": "Clientes",
+    "ngClass": "",
+    "uiSref": "index.client",
+    "iClass": "fa fa-suitcase",
+    "uiSrefSctive": "active",
+    "faArrow": ""
+  },
+  {
+    "name": "Tienda",
+    "ngClass": "",
+    "uiSref": "index.store",
+    "iClass": "fa fa-shopping-cart",
+    "faArrow": "fa arrow",
+    "hasSubitems": true,
+    "subitems": [
+      {
+        "nameChild": "Productos",
+        "ngClass": "",
+        "uiSref": "index.store-product",
+        "actions": "Parameter"
+      },
+      {
+        "nameChild": "Servicios",
+        "ngClass": "",
+        "uiSref": "index.store-service",
+        "actions": "Parameter"
+      },
+      {
+        "nameChild": "Mi Pedido",
+        "ngClass": "",
+        "uiSref": "index.cart",
+        "actions": "Parameter"
+      }
+    ]
+  }
+]

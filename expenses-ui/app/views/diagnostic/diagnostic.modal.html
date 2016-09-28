@@ -1,0 +1,78 @@
+<div class="inmodal">
+  <form role="form" name="diagnosticForm" novalidate ng-submit="vm.save()">
+    <div class="modal-header">
+      <h4 class="modal-title">{{vm.action}} {{ vm.stateData.label }}</h4>
+    </div>
+    <div class="modal-body">
+
+      <div class="tabs-container">
+
+        <uib-tabset class="tabs-left" active="vm.activeTab">
+          <uib-tab heading="Hist. C. 1" select="vm.selectTab($event, vm.activeTab, 0)" disable="!vm.tabs[0].enable">
+            <div class="panel-body">
+
+              <textarea-validator input-name="ahf" label="A.H.F." form="diagnosticForm" model="vm.diagnostic.ahf"
+                                  required="true" rows="2"></textarea-validator>
+
+              <textarea-validator input-name="apnp" label="A.P.N.P." form="diagnosticForm" model="vm.diagnostic.apnp"
+                                  required="true" rows="2"></textarea-validator>
+
+              <textarea-validator input-name="tabaquismo" label="Tabaquismo" form="diagnosticForm" model="vm.diagnostic.tabaquismo"
+                                  required="true" rows="2"></textarea-validator>
+
+              <textarea-validator input-name="drogadiccion" label="Drogadicción" form="diagnosticForm" model="vm.diagnostic.drogadiccion"
+                                  required="true" rows="2"></textarea-validator>
+
+              <textarea-validator input-name="app" label="A.P.P." form="diagnosticForm" model="vm.diagnostic.app"
+                                  required="true" rows="2"></textarea-validator>
+
+            </div>
+          </uib-tab>
+          <uib-tab heading="Hist. C. 2" select="vm.selectTab($event, vm.activeTab, 1)" disable="!vm.tabs[1].enable">
+            <div class="panel-body" ng-if="vm.activeTab >= 1">
+
+              <textarea-validator input-name="topografia" label="Topografía" form="diagnosticForm" model="vm.diagnostic.topografia"
+                                  required="true" rows="6"></textarea-validator>
+
+              <textarea-validator input-name="morfologia" label="Morfología" form="diagnosticForm" model="vm.diagnostic.morfologia"
+                                  required="true" rows="6"></textarea-validator>
+
+            </div>
+          </uib-tab>
+          <uib-tab heading="Hist. C. 3" select="vm.selectTab($event, vm.activeTab, 2)" disable="!vm.tabs[2].enable">
+            <div class="panel-body" ng-if="vm.activeTab >= 2">
+
+              <textarea-validator input-name="datosClinicos" label="Datos Clinicos" form="diagnosticForm" model="vm.diagnostic.datosClinicos"
+                                  required="true" rows="6"></textarea-validator>
+
+              <textarea-validator input-name="diagnostico" label="Diagnóstico" form="diagnosticForm" model="vm.diagnostic.diagnostico"
+                                  required="true" rows="6"></textarea-validator>
+
+            </div>
+          </uib-tab>
+        </uib-tabset>
+
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-white" ng-click="vm.cancel()">Cancelar</button>
+      <button class="btn btn-sm btn-primary" ng-show="vm.activeTab > 0" type="button" ng-click="vm.prevStep()"><strong>Anterior</strong></button>
+      <button class="btn btn-sm btn-primary" ng-hide="vm.isFinalStep" type="button" ng-click="vm.nextStep()"><strong>Siguiente</strong></button>
+      <button class="btn btn-sm btn-primary" ng-if="vm.isFinalStep" type="submit"><strong>Guardar</strong></button>
+    </div>
+  </form>
+</div>
+
+<div class="busy" ng-show="vm.loading">
+  <div class="spiner-example">
+    <div class="sk-spinner sk-spinner-wave">
+      Cargando...
+      <div class="sk-rect1"></div>
+      <div class="sk-rect2"></div>
+      <div class="sk-rect3"></div>
+      <div class="sk-rect4"></div>
+      <div class="sk-rect5"></div>
+    </div>
+  </div>
+</div>

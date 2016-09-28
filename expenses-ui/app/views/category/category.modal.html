@@ -1,0 +1,43 @@
+<div class="inmodal">
+  <form role="form" name="categoryForm" novalidate ng-submit="vm.save()">
+    <div class="modal-header">
+      <h4 class="modal-title">{{vm.action}} Categoría</h4>
+    </div>
+    <div class="modal-body">
+
+      <div class="panel-body">
+
+        <input-validator input-name="name" label="Nombre" form="categoryForm" model="vm.category.name" required="true"
+                         max-length="100"></input-validator>
+
+        <div class="form-group">
+          <label class="margin-left-md">
+            <input type="checkbox" ng-model="vm.category.product">&nbsp;Producto
+          </label>
+          <label class="margin-left-md">
+            <input type="checkbox" ng-model="vm.category.service">&nbsp;Servicio
+          </label>
+        </div>
+
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-white" ng-click="vm.cancel()">Cancelar</button>
+      <button class="btn btn-sm btn-primary" type="submit"><strong>Guardar</strong></button>
+    </div>
+  </form>
+</div>
+
+<div class="busy" ng-show="vm.loading">
+  <div class="spiner-example">
+    <div class="sk-spinner sk-spinner-wave">
+      Cargando...
+      <div class="sk-rect1"></div>
+      <div class="sk-rect2"></div>
+      <div class="sk-rect3"></div>
+      <div class="sk-rect4"></div>
+      <div class="sk-rect5"></div>
+    </div>
+  </div>
+</div>

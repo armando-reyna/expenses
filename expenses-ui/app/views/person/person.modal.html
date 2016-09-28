@@ -1,0 +1,176 @@
+<div class="inmodal">
+  <form role="form" name="personForm" novalidate ng-submit="vm.save()">
+    <div class="modal-header">
+      <h4 class="modal-title">{{vm.action}} {{ vm.stateData.label }}</h4>
+    </div>
+    <div class="modal-body">
+
+      <div class="tabs-container">
+
+        <uib-tabset class="tabs-left" active="vm.activeTab">
+          <uib-tab heading="Datos de Contacto" select="vm.selectTab($event, vm.activeTab, 0)" disable="!vm.tabs[0].enable">
+            <div class="panel-body">
+
+              <select-validator ng-if="vm.stateData.personType == CONSTANTS.PERSON_TYPE.EMPLOYEE" input-name="employeeType"
+                                label="Tipo Empleado" form="personForm" list="vm.employeeTypes" model="vm.person.employee.employeeType"
+                                required="true" option-label="name"></select-validator>
+
+              <input-validator input-name="name" label="Nombre" form="personForm" model="vm.person.name" required="true"
+                               min-length="4" max-length="100"></input-validator>
+
+              <input-validator input-name="rfc" label="RFC" form="personForm" model="vm.person.rfc" required="true"
+                               min-length="13" max-length="13"></input-validator>
+
+              <input-validator input-name="tel" label="Teléfono" form="personForm" model="vm.person.tel"
+                               only-digits="true" max-length="20"></input-validator>
+
+              <input-validator input-name="cel" label="Celular" form="personForm" model="vm.person.cel"
+                               only-digits="true" max-length="20"></input-validator>
+
+              <input-validator input-name="email" type="email" label="Correo Electrónico" form="personForm"
+                               model="vm.person.email" required="true" max-length="100"></input-validator>
+
+              <input-validator input-name="contactName" label="Nombre de Contacto" form="personForm" model="vm.person.contactName"
+                               required="true" max-length="100"></input-validator>
+
+              <input-validator ng-if="vm.stateData.personType == CONSTANTS.PERSON_TYPE.EMPLOYEE" input-name="contactEmergency"
+                               label="Nombre Contacto Emergencia" form="personForm" model="vm.person.contactEmergency"
+                               required="true" max-length="100"></input-validator>
+
+              <input-validator ng-if="vm.stateData.personType == CONSTANTS.PERSON_TYPE.EMPLOYEE" input-name="telEmergency"
+                               label="Teléfono Contacto Emergencia" form="personForm" model="vm.person.telEmergency"
+                               only-digits="true" max-length="20"></input-validator>
+
+              <date-validator ng-if="vm.stateData.personType == CONSTANTS.PERSON_TYPE.CLIENT"
+                              input-name="firstTime" label="Fecha primera vez" form="personForm" model="vm.person.firstTime"
+                              required="true"></date-validator>
+
+              <textarea-validator ng-if="vm.stateData.personType == CONSTANTS.PERSON_TYPE.CLIENT"
+                                  input-name="motivo" label="Motivo" form="personForm" model="vm.person.motivo"
+                                  required="true"></textarea-validator>
+
+            </div>
+          </uib-tab>
+          <uib-tab heading="Dirección" select="vm.selectTab($event, vm.activeTab, 1)" disable="!vm.tabs[1].enable">
+            <div class="panel-body" ng-if="vm.activeTab >= 1">
+
+              <input-validator input-name="calle" label="Calle" form="personForm" model="vm.person.address.calle" required="true"
+                               max-length="100"></input-validator>
+
+              <input-validator input-name="noExt" label="No. Ext." form="personForm" model="vm.person.address.noExt" required="true"
+                               max-length="5" only-digits="true"></input-validator>
+
+              <input-validator input-name="noInt" label="No. Int." form="personForm" model="vm.person.address.noInt"
+                               max-length="5" only-digits="true"></input-validator>
+
+              <select-validator input-name="estado" label="Estado" form="personForm" list="vm.estados" model="vm.person.address.estado" required="true"
+                                option-label="name"></select-validator>
+
+              <input-validator input-name="colonia" label="Colonia" form="personForm" model="vm.person.address.colonia" required="true"
+                               max-length="100"></input-validator>
+
+              <input-validator input-name="delegacion" label="Delegación" form="personForm" model="vm.person.address.delegacion" required="true"
+                               max-length="100"></input-validator>
+
+              <input-validator input-name="cp" label="Código Postal" form="personForm" model="vm.person.address.cp" required="true"
+                               max-length="5" only-digits="true"></input-validator>
+
+              <div class="form-group" ng-if="vm.stateData.personType == CONSTANTS.PERSON_TYPE.CLIENT">
+                <br>
+                <label class="margin-left-md pull-right">
+                  <input type="checkbox" ng-model="vm.person.createUser">&nbsp;CREAR USUARIO&nbsp;<i class="fa fa-user" aria-hidden="true"></i>
+                </label>
+              </div>
+
+            </div>
+          </uib-tab>
+          <uib-tab heading="Datos del Puesto" ng-if="vm.stateData.personType == CONSTANTS.PERSON_TYPE.EMPLOYEE"
+                   select="vm.selectTab($event, vm.activeTab, 2)" disable="!vm.tabs[2].enable">
+            <div class="panel-body" ng-if="vm.activeTab >= 2">
+
+              <input-validator input-name="ccto" label="CCTO" form="personForm" model="vm.person.employee.ccto" required="true"
+                               max-length="100"></input-validator>
+
+              <input-validator input-name="puesto" label="Puesto" form="personForm" model="vm.person.employee.puesto" required="true"
+                               max-length="100"></input-validator>
+
+              <date-validator input-name="fechaIngreso" label="Fecha de Ingreso" form="personForm" model="vm.person.employee.fechaIngreso"
+                              required="true"></date-validator>
+
+              <input-validator input-name="horario" label="Horario" form="personForm" model="vm.person.employee.horario" required="true"
+                               max-length="100"></input-validator>
+
+              <input-validator input-name="salario" label="Salario" form="personForm" model="vm.person.employee.salario" required="true"
+                               only-digits="true" max-length="20"></input-validator>
+
+              <input-validator input-name="otros" label="Otros" form="personForm" model="vm.person.employee.otros"
+                               max-length="100"></input-validator>
+
+              <select-validator input-name="turno" label="Turno" form="personForm" list="vm.turnos" model="vm.person.employee.turno"
+                                required="true" option-label="name"></select-validator>
+
+              <textarea-validator input-name="ubicacion" label="Ubicación" form="personForm" model="vm.person.employee.ubicacion"
+                                  max-length="300"></textarea-validator>
+
+              <input-validator input-name="jefeDirecto" label="Jefe Directo" form="personForm" model="vm.person.employee.jefeDirecto"
+                               max-length="100"></input-validator>
+
+              <div class="form-group" ng-if="vm.stateData.personType == CONSTANTS.PERSON_TYPE.EMPLOYEE">
+                <br>
+                <label class="margin-left-md pull-right">
+                  <input type="checkbox" ng-model="vm.person.createUser">&nbsp;CREAR USUARIO&nbsp;<i class="fa fa-user" aria-hidden="true"></i>
+                </label>
+              </div>
+
+            </div>
+          </uib-tab>
+          <uib-tab heading="Cuenta Bancaria" ng-if="vm.stateData.personType == CONSTANTS.PERSON_TYPE.SUPPLIER"
+                   select="vm.selectTab($event, vm.activeTab, 2)" disable="!vm.tabs[2].enable">
+            <div class="panel-body" ng-if="vm.activeTab >= 2">
+
+              <input-validator input-name="bank" label="Banco" form="personForm" model="vm.person.bankAccount.bank" required="true"
+                               max-length="100"></input-validator>
+
+              <input-validator input-name="beneficiario" label="Beneficiario" form="personForm" model="vm.person.bankAccount.beneficiario"
+                               required="true" max-length="100"></input-validator>
+
+              <input-validator input-name="cta" label="Cuenta" form="personForm" model="vm.person.bankAccount.cta"
+                               required="true" max-length="11" only-digits="true"></input-validator>
+
+              <input-validator input-name="sucursal" label="Sucursal" form="personForm" model="vm.person.bankAccount.sucursal"
+                               required="true" max-length="50"></input-validator>
+
+              <input-validator input-name="clabe" label="Clabe" form="personForm" model="vm.person.bankAccount.clabe"
+                               required="true" max-length="18" only-digits="true"></input-validator>
+
+              <input-validator input-name="formaPago" label="Forma de Pago" form="personForm" model="vm.person.bankAccount.formaPago"
+                               required="true" max-length="100"></input-validator>
+
+            </div>
+          </uib-tab>
+        </uib-tabset>
+
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-white" ng-click="vm.cancel()">Cancelar</button>
+      <button class="btn btn-sm btn-primary" ng-show="vm.activeTab > 0" type="button" ng-click="vm.prevStep()"><strong>Anterior</strong></button>
+      <button class="btn btn-sm btn-primary" ng-hide="vm.isFinalStep" type="button" ng-click="vm.nextStep()"><strong>Siguiente</strong></button>
+      <button class="btn btn-sm btn-primary" ng-if="vm.isFinalStep" type="submit"><strong>Guardar</strong></button>
+    </div>
+  </form>
+</div>
+
+<div class="busy" ng-show="vm.loading">
+  <div class="spiner-example">
+    <div class="sk-spinner sk-spinner-wave">
+      Cargando...
+      <div class="sk-rect1"></div>
+      <div class="sk-rect2"></div>
+      <div class="sk-rect3"></div>
+      <div class="sk-rect4"></div>
+      <div class="sk-rect5"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+    <h2>Tienda</h2>
+    <ol class="breadcrumb">
+      <li class="active">
+        <strong>{{ vm.stateData.pageTitle }}</strong>
+      </li>
+    </ol>
+  </div>
+  <div class="col-lg-2">
+
+  </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+
+  <div class="row">
+    <div ng-repeat="product in vm.productList">
+      <div class="clearfix" ng-if="$index % 4 == 0"></div>
+      <div class="col-md-3">
+        <div class="ibox">
+          <div class="ibox-content product-box">
+
+            <div class="product-imitation">
+              <img ng-if="product.productFiles[0]"
+                   ng-src="{{CONSTANTS.API_URI + 'storage/product-view?' + product.productFiles[0].fileURL}}">
+            </div>
+            <div class="product-desc">
+              <span class="product-price">
+                  {{product.price}}
+              </span>
+              <small class="text-muted">{{product.category.name}}</small>
+              <a href="#" class="product-name"> {{product.name}}</a>
+              <div class="small m-t-xs">
+                {{product.description}}
+              </div>
+              <div class="m-t text-righ">
+                <a ng-click="vm.addToCart(product)" class="btn btn-xs btn-outline btn-primary"> <i class="fa fa-shopping-cart"></i> Comprar</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+</div>
